@@ -22,7 +22,7 @@ class BitmapBoard < Board
   end
 
   def load(input)
-    initialize
+    @positions['x'] = @positions['o'] = 0
     input.chars.each_with_index do |mark, i|
       next if mark == "."
       @positions[mark] += 2 ** i
