@@ -15,10 +15,7 @@ class BitmapBoard < Board
   ]
 
   def initialize
-    @positions = {
-      'o' => 0,
-      'x' => 0,
-    }
+    @positions = Hash.new(0)
   end
 
   def load(input)

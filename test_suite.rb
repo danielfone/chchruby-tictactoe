@@ -16,15 +16,16 @@ class TestSuite
   ]
   POSITIONS = 1.upto(9).cycle
 
-  def initialize(*board_classes, detailed: false)
+  def initialize(*board_classes, run_benchmarks: false, detailed_benchmarks: false)
     @board_classes = Array(board_classes)
-    @detailed = detailed
+    @detailed_benchmarks = detailed_benchmarks
+    @run_benchmarks = run_benchmarks
   end
 
   def run
     tests.each &:perform
-    benchmark_playthroughs
-    benchmark_methods if @detailed
+    benchmark_playthroughs if @run_benchmarks
+    benchmark_methods if @detailed_benchmarks
   end
 
 private
@@ -35,7 +36,8 @@ private
 
   def benchmark_playthroughs
     puts "==> Benchmarking playthrough"
-    benchmark("Playthrough") { |klass| playthrough klass }
+    moves = 1.upto(9).to_a.shuffle
+    benchmark("Playthrough") { |klass| playthrough klass, moves }
   end
 
   def benchmark(type, &block)
@@ -49,7 +51,7 @@ private
     end
   end
 
-  def playthrough(board_klass)
+  def playthrough(board_klass, moves)
     moves = 1.upto(9).to_a.shuffle
     b = board_klass.new
     until b.winner || b.draw? do
@@ -85,7 +87,7 @@ class BoardTest
   end
 
   def perform
-    puts "TESTING #{@board.inspect}"
+    puts "Testing #{@board.class.name}..."
     @board.load 'xoxoxooo.'
     fail_expectation "board shouldn't be finished" if @board.finished?
     fail_expectation "board shouldn't have a winner" if @board.winner
@@ -105,7 +107,6 @@ BOARD
     fail_expectation "board should be finished" if ! @board.finished?
     fail_expectation "x should be the winner" unless @board.winner == 'x'
 
-    puts "TESTING VICTORY CHECK"
     test_victory "x.o.xxx..", nil
     test_victory "..ooo....", nil
     test_victory "oo.oo....", nil
@@ -120,7 +121,6 @@ BOARD
     test_victory "..x..x..x", 'x'
     test_victory "o...o...o", 'o'
     test_victory "..x.x.x..", 'x'
-    puts
   end
 
 private
@@ -147,7 +147,7 @@ private
       fail_expectation "Victory check failed",
        "Expected winner to be #{expected.inspect}\n"+
        "Got #{actual.inspect}\n"+
-       "#{board}\n"
+       "#{@board}\n"
     end
   end
 end
