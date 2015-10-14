@@ -21,10 +21,6 @@ class Board
     raise InvalidPlacementError
   end
 
-  def draw?
-    finished? && ! winner
-  end
-
   # True if all the squares have been filled
   def finished?
     raise NotImplementedError
@@ -35,12 +31,17 @@ class Board
     raise NotImplementedError
   end
 
+  def draw?
+    finished? && ! winner
+  end
+
   def to_s
     (board_in_2d.map {|s| s.join(" | ") }.join("\n--+---+--\n") + "\n").tr '.', ' '
   end
 
 private
 
+  # This is optional and isn't tested
   # This needs to be a 2D array
   # e.g. [["x", "o", "x"], ["o", "x", "o"], ["o", "o", " "]]
   def board_in_2d
