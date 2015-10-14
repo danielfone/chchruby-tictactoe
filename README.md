@@ -11,7 +11,7 @@
   ```
 3. Fix the specs (probably in order)
 
-4. Once you've got your board working, edit the add it to the performance test in tictactoe_speed.rb and see how it compares!
+4. Once you've got your board working, add it to the performance test in tictactoe_speed.rb and see how it compares!
 
   ```
     $ ruby tictactoe_speed.rb
