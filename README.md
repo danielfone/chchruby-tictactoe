@@ -1,18 +1,20 @@
 
 1. Install gems (just rspec and benchmark-ips)
 
-    $ bundle install
-
+  ```
+      $ bundle install
+  ```
 2. Run the test suite, it should fail with loads of `NotImplementedError`s
 
+  ```
     $ rspec -cfd  # --color --format documentation
-
+  ```
 3. Fix the specs (probably in order)
 
 4. Once you've got your board working, edit the add it to the performance test in tictactoe_speed.rb and see how it compares!
 
+  ```
     $ ruby tictactoe_speed.rb
-
     Testing FastBoard...
     Testing SlowBoard...
     ==> Benchmarking playthrough
@@ -26,3 +28,4 @@
     Comparison:
         Fast Playthrough:    31700.5 i/s
         Slow Playthrough:     1482.0 i/s - 21.39x slower
+  ```
