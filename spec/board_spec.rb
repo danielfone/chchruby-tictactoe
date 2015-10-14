@@ -1,8 +1,7 @@
-# Change this to your subclassed file
 require_relative "../boards/board"
 
 RSpec.describe Board do
-  subject(:board) { Board.new } # Change this to your board class
+  subject(:board) { Board.new }
 
   specify '#finished' do
     board.load 'xoxo.ooox'
