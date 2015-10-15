@@ -32,7 +32,16 @@ class Board
 
   # returns 'x', 'o' or `nil` for a draw or an incomplete board
   def winner
-    raise NotImplementedError
+    wincheck = state.each_slice(3).to_a.transpose
+    return "x" if wincheck.map { |r| r.all? { |c| c == "x"} }.any?
+    return "o" if wincheck.map { |r| r.all? { |c| c == "o"} }.any?
+    wincheck = state.each_slice(3).to_a
+    return "x" if wincheck.map { |r| r.all? { |c| c == "x"} }.any?
+    return "o" if wincheck.map { |r| r.all? { |c| c == "o"} }.any?
+    return "x" if state[0] == state[4] && state[4] == state[8] && state[8] == "x"
+    return "x" if state[2] == state[4] && state[4] == state[6] && state[6] == "x"
+    return "o" if state[0] == state[4] && state[4] == state[8] && state[8] == "o"
+    return "o" if state[2] == state[4] && state[4] == state[6] && state[6] == "o"
   end
 
   def draw?
