@@ -1,4 +1,7 @@
 class Board
+  def initialize
+    @state = []
+  end
   InvalidPlacementError = Class.new StandardError
 
   # Takes a simple string like e.g.
