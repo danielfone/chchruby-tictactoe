@@ -27,7 +27,11 @@ class Board
 
   # True if all the squares have been filled
   def finished?
-    raise NotImplementedError
+	if state.any? { |c| c == "."}
+		return false
+	else
+		return true
+	end
   end
 
   # returns 'x', 'o' or `nil` for a draw or an incomplete board
